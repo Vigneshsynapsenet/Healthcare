@@ -255,7 +255,6 @@ import React, { useState, useEffect } from 'react';
 import type { WebsiteAnalysis } from './types';
 import { LandingPage } from './components/LandingPage';
 import { ResultsPage } from './components/ResultsPage';
-
 interface FormData {
   url: string;
   email: string;
