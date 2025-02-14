@@ -262,7 +262,7 @@ interface FormData {
 }
 
 // ✅ Dynamic API URL for Vercel & local development
-const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+const API_BASE_URL = "https://healthcare-five-lilac.vercel.app/"
 
 const generateAnalysisId = (url: string): string => {
   const timestamp = Date.now();
