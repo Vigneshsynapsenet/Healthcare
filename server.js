@@ -68,19 +68,17 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend files from 'dist' folder
+// Serve React frontend from 'dist' folder
 app.use(express.static(path.join(__dirname, "dist")));
 
-// API Route
+// API Route for website analysis
 app.post("/analyze", async (req, res) => {
   try {
     const { url } = req.body;
     const startTime = Date.now();
     
     const response = await axios.get(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0"
-      }
+      headers: { "User-Agent": "Mozilla/5.0" }
     });
 
     const responseTime = Date.now() - startTime;
@@ -105,5 +103,5 @@ app.get("*", (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`✅ Server is on port ${port}`);
+  console.log(`✅ Server running on port ${port}`);
 });
