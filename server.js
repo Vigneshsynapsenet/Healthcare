@@ -52,7 +52,6 @@
 // app.listen(port, () => {
 //   console.log(`Proxy server running at http://localhost:${port}`);
 // });
-
 import express from "express";
 import cors from "cors";
 import axios from "axios";
@@ -106,5 +105,5 @@ app.get("*", (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`✅ Server is running on port ${port}`);
+  console.log(`✅ Server is on port ${port}`);
 });
