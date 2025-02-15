@@ -263,10 +263,8 @@ interface FormData {
   email: string;
 }
 
-// This will be automatically replaced by Vercel with the deployment URL
-const API_URL = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}/api/analyze`
-  : 'http://localhost:3000/api/analyze';
+// Get the current hostname for the API URL
+const API_URL = `/api/analyze`;
 
 const generateAnalysisId = (url: string): string => {
   const timestamp = Date.now();

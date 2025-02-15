@@ -18,10 +18,13 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
+  // Handle CORS
+  response.setHeader('Access-Control-Allow-Credentials', 'true');
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  response.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
   if (request.method === 'OPTIONS') {
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return response.status(200).end();
   }
 
@@ -46,13 +49,11 @@ export default async function handler(
 
     const simulatedMetrics = await simulatePerformanceMetrics(responseTime, hasViewport, hasHttps);
 
-    response.setHeader('Access-Control-Allow-Origin', '*');
     return response.status(200).json({
       data: html,
       lighthouse: simulatedMetrics
     });
   } catch (error) {
-    response.setHeader('Access-Control-Allow-Origin', '*');
     return response.status(500).json({ error: 'Failed to analyze website' });
   }
 }
