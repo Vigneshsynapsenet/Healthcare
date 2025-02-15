@@ -263,7 +263,6 @@ interface FormData {
   email: string;
 }
 
-// Get the current hostname for the API URL
 const API_URL = `/api/analyze`;
 
 const generateAnalysisId = (url: string): string => {
@@ -367,7 +366,15 @@ function App() {
 
     try {
       const startTime = performance.now();
-      const response = await axios.post(API_URL, { url: formData.url });
+      const response = await axios.post(API_URL, { 
+        url: formData.url 
+      }, {
+        timeout: 30000, // 30 second timeout
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
       const loadTime = performance.now() - startTime;
       const root = parse(response.data.data);
 
@@ -469,11 +476,11 @@ function App() {
       setShareUrl(newUrl);
 
       setAnalysis(updatedAnalysis);
-    } catch (error) {
+    } catch (error: any) {
       setAnalysis({
         ...initialAnalysis,
         loading: false,
-        error: 'Failed to analyze website. Please check the URL and try again.',
+        error: error.response?.data?.error || error.response?.data?.details || 'Failed to analyze website. Please check the URL and try again.',
       });
     }
   };
